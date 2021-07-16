@@ -1,0 +1,21 @@
+# Javascript Node CircleCI 2.0 configuration file
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: cimg/node:lts
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: git reset --hard HEAD
+      - run: git checkout master;
+      - run: echo $RANDOM >> result.txt
+      - run: git config user.email "circleci@users.noreply.github.com"
+      - run: git config user.name "circleci"
+      - run: git add result.txt
+      - run: git commit -m 'add results [skip ci]'
+      - run: git push origin master;
