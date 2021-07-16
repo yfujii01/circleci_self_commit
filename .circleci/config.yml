@@ -19,3 +19,16 @@ jobs:
       - run: git add result.txt
       - run: git commit -m 'add results [skip ci]'
       - run: git push origin master;
+
+workflows:
+ version: 2
+ commit_test_results:
+   triggers:
+     - schedule:
+         cron: "15 * * * *"
+         filters:
+           branches:
+             only:
+               - master
+   jobs:
+     - build
